@@ -12,7 +12,7 @@ export type INavLink = {
     bio: string;
     imageID: string;
     imageUrl: URL | string;
-    file: File[] | undefined;
+    file: File[];
   };
   
   export type INewPost = {
