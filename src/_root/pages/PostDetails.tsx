@@ -30,7 +30,7 @@ const PostDetails = () => {
           <Link to={`/profile/${post?.creator.$id}`}
            className="flex items-center gap-3">
             <img 
-            src={post?.creator?.imageUrl || '' } 
+            src={post?.creator?.imageUrl || '\assets\icons\profile.placeholder.svg' } 
             alt="creator" 
             className="rounded-full w-8 h-8 lg:h-12 lg:w-12"
             />
@@ -54,7 +54,7 @@ const PostDetails = () => {
            <Link to={`/update-post/${post?.$id}`} 
            className={`${user.id !== post?.creator.$id && 'hidden'}`} >
             <img 
-            src="" 
+            src="\assets\icons\edit.svg" 
             alt="edit"
             width={24}
             height={24} 
@@ -66,7 +66,7 @@ const PostDetails = () => {
               className={`ghost_details-delete-btn ${user.id !== post?.creator.$id && 'hidden'}`}
               >
                 <img 
-                src="" 
+                src="\assets\icons\delete.svg" 
                 alt="delete"
                 width={24}
                 height={24} 

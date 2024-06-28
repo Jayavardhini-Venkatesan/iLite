@@ -70,7 +70,7 @@ async function onSubmit(values: z.infer<typeof SigninValidation>) {
   return (
     <Form {...form}>
       <div className="sm:w-420 flex-center flex-col">
-        <img src="/assets/images/SVG/logo" 
+        <img src="/assets/images/SVG/logo.svg" 
         alt="logo"
         width={140} 
         height={100}/>

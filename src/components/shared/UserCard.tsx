@@ -14,7 +14,7 @@ const UserCard = ({creator}: UserCardProps) => {
           <Link to={`/profile/${creator.$id}`}>
             <img 
             className="rounded-full w-12 lg:h-12"
-            src={creator?.imageUrl || '/assets/icons/profile-placeholder' } 
+            src={creator?.imageUrl || '/assets/icons/profile.placeholder.svg' } 
             alt="creator" />
           </Link>
           <div className="flex flex-col">

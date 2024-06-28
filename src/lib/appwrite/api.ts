@@ -1,4 +1,4 @@
-import { INewPost, INewUser, IUpdatePost } from "@/types";
+import { INewPost, INewUser, IUpdatePost, IUpdateUser } from "@/types";
 import { account, appwriteConfig, avatars, databases, storage } from "./config";
 import { ID, Query } from "appwrite";
 
@@ -71,12 +71,23 @@ export async function signinAccount(user: {
    }
 }
 
+export async function getAccount() {
+  try {
+    const currentAccount = await account.get();
+
+    return currentAccount;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 export async function getCurrentUser() {
     try {
-    const currentAccount = await account.get();
-    console.log(currentAccount)
+    const currentAccount = await getAccount()
+    
     if (!currentAccount) throw Error;
-
+    
+    
     const currentUser = await databases.listDocuments(
         appwriteConfig.databaseId,
         appwriteConfig.userCollectionId,
@@ -86,11 +97,11 @@ export async function getCurrentUser() {
     if (!currentUser) throw Error;
    
     return currentUser.documents[0];
-    } catch (error) {
+     } catch (error) {
       console.log("Appwrite service :: getCurrentUser ::",error);
     }
  }
- console.log(getCurrentUser)
+ 
 
 export async function signoutAccount() {
     try {
@@ -186,7 +197,7 @@ export async function getRecentPosts() {
     const posts = await databases.listDocuments(
         appwriteConfig.databaseId,
         appwriteConfig.postCollectionId,
-        [Query.orderDesc('$createAt'), Query.limit(20)]
+        [Query.orderDesc('$createdAt'), Query.limit(20)]
     )
    if (!posts) throw Error
    return posts 
@@ -322,8 +333,8 @@ export async function likePost(postId: string, likesArray: string[]) {
     }
    }
    
-   export async function getInfinitePosts({pageParam}:{pageParam:number}) {
-    const queries:any[] = [Query.orderDesc('$updateAt'), Query.limit(10)]
+   export async function getInfinitePosts({pageParam}:{pageParam:any}) {
+    const queries:any[] = [Query.orderDesc('$updatedAt'), Query.limit(10)]
 
     if(pageParam) {
       queries.push(Query.cursorAfter(pageParam.toString()));
@@ -358,23 +369,7 @@ export async function likePost(postId: string, likesArray: string[]) {
     }
    }
 
-  //  export async function getInfiniteUsers({pageParam}:{pageParam:number}) {
-  //   const queries:any[] = [Query.limit(15)]
-  //   if (pageParam){
-  //     queries.push(Query.cursorAfter(pageParam.toString()))
-  //   }
-  //   try {
-  //     const users = databases.listDocuments(
-  //      appwriteConfig.databaseId,
-  //      appwriteConfig.postCollectionId,
-  //      queries,
-  //     );
-  //     if (!users) throw Error;
-  //     return users;
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  //  }
+ 
 
   export async function getUsers() {
     try {
@@ -387,5 +382,78 @@ export async function likePost(postId: string, likesArray: string[]) {
       return users;
     } catch (error) {
       console.log("Appwrite service :: getUsers ::",error)
+    }
+  }
+
+  export async function getUserById(userId: string) {
+    try {
+      const user = await databases.getDocument(
+        appwriteConfig.databaseId,
+        appwriteConfig.userCollectionId,
+        userId
+      );
+  
+      if (!user) throw Error;
+  
+      return user;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  
+  
+  export async function updateUser(user: IUpdateUser) {
+    const hasFileToUpdate = user.file.length > 0;
+    try {
+      let image = {
+        imageUrl: user.imageUrl,
+        imageId: user.imageID,
+      };
+  
+      if (hasFileToUpdate) {
+        
+        const uploadedFile = await uploadfile(user.file[0]);
+        if (!uploadedFile) throw Error;
+  
+       
+        const fileUrl = getFilePreview(uploadedFile.$id);
+        if (!fileUrl) {
+          await deletFile(uploadedFile.$id);
+          throw Error;
+        }
+  
+        image = { ...image, imageUrl: fileUrl, imageId: uploadedFile.$id };
+      }
+  
+   
+      const updatedUser = await databases.updateDocument(
+        appwriteConfig.databaseId,
+        appwriteConfig.userCollectionId,
+        user.userId,
+        {
+          name: user.name,
+          bio: user.bio,
+          imageUrl: image.imageUrl,
+          imageId: image.imageId,
+        }
+      );
+  
+    
+      if (!updatedUser) {
+       
+        if (hasFileToUpdate) {
+          await deletFile(image.imageId);
+        }
+
+        throw Error;
+      }
+
+      if (user.imageID && hasFileToUpdate) {
+        await deletFile(user.imageID);
+      }
+  
+      return updatedUser;
+    } catch (error) {
+      console.log(error);
     }
   }

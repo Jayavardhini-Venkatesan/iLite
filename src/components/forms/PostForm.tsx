@@ -1,5 +1,5 @@
 import { zodResolver } from "@hookform/resolvers/zod"
-import { Link, useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 import { useForm } from "react-hook-form"
 import { useToast } from "@/components/ui/use-toast"
 import { z } from "zod"
@@ -12,6 +12,7 @@ import { Textarea } from "../ui/textarea"
 import { PostValidation } from "@/lib/validation"
 import { Models } from "appwrite"
 import { useCreatePost, useUpdatePost } from "@/lib/react-query/queriesAndMutations"
+import Loader from "../shared/Loader"
 
 
 type PostFormProps ={
@@ -44,7 +45,7 @@ async function onSubmit(values: z.infer<typeof PostValidation>) {
     const updatedPost= await updatePost( {
       ...values,
       postId: post.$id,
-      imageId: post?.imageId,
+      imageID: post?.imageId,
       imageUrl: post?.imageUrl,
     } )
 
@@ -79,7 +80,11 @@ async function onSubmit(values: z.infer<typeof PostValidation>) {
           <FormItem>
             <FormLabel className="shad-form_label">Caption</FormLabel>
             <FormControl>
-              <Textarea className ="shad-textarea custom-scrollbar" {...field} />
+              <Textarea 
+              className ="shad-textarea custom-scrollbar" 
+              autoComplete="on" 
+              {...field} 
+              />
             </FormControl>
             <FormMessage className="shad-form_message" />
           </FormItem>
@@ -92,12 +97,15 @@ async function onSubmit(values: z.infer<typeof PostValidation>) {
         name="file"
         render={({ field }) => (
           <FormItem>
-            <FormLabel className="shad-form_label">Caption</FormLabel>
+            <FormLabel className="shad-form_label">Add Photos</FormLabel>
             <FormControl>
+              
               <FileUploader 
               fieldChange={field.onChange}
               mediaUrl={post?.imageUrl}
+               
               />
+              
             </FormControl>
             <FormMessage className="shad-form_message"/>
           </FormItem>
@@ -112,7 +120,12 @@ async function onSubmit(values: z.infer<typeof PostValidation>) {
           <FormItem>
             <FormLabel className="shad-form_label">Location</FormLabel>
             <FormControl>
-              <Input type="text" className="shad-input" {...field} />
+              <Input 
+              type="text" 
+              className="shad-input" 
+              autoComplete="on"
+              {...field} 
+              />
             </FormControl>
             <FormMessage className="shad-form_message" />
           </FormItem>
@@ -130,6 +143,7 @@ async function onSubmit(values: z.infer<typeof PostValidation>) {
               type="text" 
               className="shad-input"
               placeholder="Arts,Expression,Learn"
+              autoComplete="on"
               {...field} />
             </FormControl>
             <FormMessage className="shad-form_message"/>
@@ -139,7 +153,8 @@ async function onSubmit(values: z.infer<typeof PostValidation>) {
       <div  className="flex gap-4 items-center justify-center">
       <Button 
       type="button" 
-      className="shad-button_dark_4">
+      className="shad-button_dark_4"
+      onClick={() => navigate(-1)}>
         Cancel
       </Button>
 
@@ -147,7 +162,7 @@ async function onSubmit(values: z.infer<typeof PostValidation>) {
       type="submit" 
       className="shad-button_primary whitespace-nowrap"
       disabled={isloadingCreate || isUpdatingPost}>
-        {isloadingCreate || isUpdatingPost && '...Loading'}
+        {isloadingCreate || isUpdatingPost && <Loader/>}
         {action} Post
       </Button>
 

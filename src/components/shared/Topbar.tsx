@@ -19,26 +19,27 @@ const Topbar = () => {
   return (
     <section className="topbar">
       <div className="flex-between py-4 px-5">
-        <Link to="/" className="flex gap-3 items-center">
+        <Link to="/" className="flex gap-2 items-center">
           <img 
-          src="/assets/images/SVG/logo" 
+          src="/assets/images/SVG/logo.svg" 
           alt="logo"
-          width={130}
-          height={325}
+          width={64}
+          height={20}
            />
         </Link>
-
-        <div className="flex gap-4">
+        
+        <div className="flex gap-2 items-center justify-end">
           <Button variant= "ghost" className="shad_button_ghost" onClick={() => signOut()}>
-           <img src="/assets/icons/logout" alt="logout" />
+           <img src="/assets/icons/logout.svg" alt="logout" />
           </Button>
-        </div>
-        <Link to= {`/profile/${user.id}`} className="flex items-center gap-3">
+        
+        <Link to= {`/profile/${user.id}`} className="flex gap-2">
          <img 
-         src= { user.imageUrl ||'/assets/icons/profile.placeholder'} 
+         src= { user.imageUrl ||'/assets/icons/profile.placeholder.svg'} 
          alt="profile image"
          className="h-8 w-8 rounded-full" />
         </Link>
+        </div>
       </div>
     </section>
   )

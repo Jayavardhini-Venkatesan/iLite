@@ -13,10 +13,10 @@ const SearchResults = ({isSearchFetching, searchedPosts}: SearchResultprops) => 
     return(
       <GridPostList posts={searchedPosts.documents} />
     )
-  }
+  }else{
   return (
     <p className="text-light-4 mt-10 text-center w-full">No results found</p>
-  )
+  )}
 }
 
 export default SearchResults

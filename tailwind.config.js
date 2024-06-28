@@ -47,7 +47,7 @@ module.exports = {
 
       },
       backgroundImage: {
-        'dood-image' : 'url(/assets/images/SVG/dood lay.svg)'
+        'dood-image' : 'url(/assets/images/SVG/bg-dood.svg)'
         },
       keyframes: {
         'accordion-down': {

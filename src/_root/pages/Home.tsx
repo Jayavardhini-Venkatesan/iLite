@@ -20,28 +20,30 @@ const Home = () => {
             ):(
               <ul className="flex flex-col flex-1 gap-9 w-full">
                {posts?.documents.map((post:Models.Document) => (
-                <PostCard post = {post} />
+                <PostCard post = {post} key={post.id} />
                ))}
               </ul>
             )
             }
         </div>
-        <div className="home-creators">
-        <h2 className="h3-bold md:h2-bold text-left w-full">Connect with people</h2>
+        </div>
+        <div className="home-creators" >
+        <h2 className="h3-bold text-left w-full ">Connect with people</h2>
         {
             isUSerLoading || isErrorUser?(
              <Loader /> 
             ):(
-              <ul className="flex flex-col flex-1 gap-9 w-full">
+              <ul className="flex flex-col flex-1 gap-5 w-full">
                {creators?.documents.map((creator:Models.Document) => (
-                <UserCard creator= {creator} />
+                <UserCard creator= {creator} key={creator?.$id}/>
                ))}
               </ul>
             )
           }
         </div>
+     
       </div>
-    </div>
+    
   )
 }
 

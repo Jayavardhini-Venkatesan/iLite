@@ -14,7 +14,7 @@ const EditPost = () => {
     <div className="common-container">
       <div className="max-w-5xl flex-start gap-3 justify-start w-full">
         <img 
-        src="" 
+        src="\assets\icons\edit.svg" 
         width={36}
         alt="add"
         />

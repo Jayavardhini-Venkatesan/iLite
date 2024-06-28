@@ -40,7 +40,7 @@ const shouldShowPost = !shouldShowSearchResults && posts.pages.every(
       <h2 className="h3-bold md:h2-bold w-full">Search Posts</h2>
        <div className="flex gap-1 px-4 w-full rounded-lg bg-dark-4">
         <img 
-        src="" 
+        src="\assets\icons\search.svg" 
         alt="search"
         width={24}
         height={24}
@@ -50,7 +50,10 @@ const shouldShowPost = !shouldShowSearchResults && posts.pages.every(
          placeholder="Search"
          className="explore-search"
          value={searchValue}
-         onChange={(e)=> {setSearchValue(e.target.value)}}
+         onChange={(e)=> {
+          const {value} = e.target;
+          setSearchValue(value)
+        }}
          />
        </div>
      </div>
@@ -59,7 +62,7 @@ const shouldShowPost = !shouldShowSearchResults && posts.pages.every(
       <div className="flrx-center gap-3 bg-dark-3 rounded-xl px-4 py-2 cursor-pointer">
         <p className="small-medium md:base-medium text-light-2">All</p>
         <img 
-        src="" 
+        src="\assets\icons\filter.svg" 
         alt="filter"
         width={20}
         height={20} 
@@ -75,9 +78,9 @@ const shouldShowPost = !shouldShowSearchResults && posts.pages.every(
       ):shouldShowPost ? (
         <p className="text-light-4 mt-10 text-center w-full">End of posts</p>
       ):(
-        posts.pages.map((item,index) => {
-          <GridPostList key = {`page-${index}`} posts= {item.documents}/>
-        })
+        posts.pages.map((item,index) => (
+          <GridPostList key = {`page-${index}`} posts= {item?.documents}/>
+        ))
       )
       }
      </div>

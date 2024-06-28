@@ -20,7 +20,7 @@ export const sidebarLinks = [
       label: "Saved",
     },
     {
-      imgURL: "/assets/icons/gallery-add.svg",
+      imgURL: "/assets/icons/gallery.svg",
       route: "/create-post",
       label: "Create Post",
     },
@@ -43,7 +43,7 @@ export const sidebarLinks = [
       label: "Saved",
     },
     {
-      imgURL: "/assets/icons/gallery-add.svg",
+      imgURL: "/assets/icons/gallery.svg",
       route: "/create-post",
       label: "Create",
     },

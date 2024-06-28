@@ -21,41 +21,42 @@ const SideBar = () => {
   
 
   return (
-    <nav className="Leftsidebar">
+    <nav className="leftsidebar">
       <div className="flex flex-col gap-11">
       <Link to="/" className="flex gap-3 items-center">
           <img 
-          src="/assets/images/SVG/logo" 
+          src="/assets/images/SVG/logo.svg" 
           alt="logo"
-          width={170}
+          width={96}
           height={36}
+          className="p-2"
            />
         </Link>
         <Link to= {`/profile/${user.id}`} 
         className="flex items-center gap-3">
          <img 
-         src= { user.imageUrl ||'/assets/icons/profile-placeholder'} 
+         src= { user.imageUrl ||'/assets/icons/profile.placeholder.svg'} 
          alt="profile image"
          className="h-14 w-14 rounded-full" />
          <div className="flex flex-col">
-          <p className="body-bold">
+          <p className="body-bold  text-light-2 ">
             {user.name}
           </p>
-          <p className="small-regular text-light-3"></p>
+          <p className="small-regular text-light-3">{user.username}</p>
          </div>
         </Link>
         
-        <ul className="flex flex-col items-center">
+        <ul className="flex flex-col items-center justify-items-center">
          {sidebarLinks.map ((link : INavLink) => {
           const isActive = pathname === link.route;
          return (
           <li key={link.label} 
           className= {`leftsidebar-link group ${
-            isActive && 'bg-primary-500'
+            isActive && 'bg-gradient-to-tr from-light-3 to-light-4'
           }`}>
           <NavLink 
           to={link.route} 
-          className= "flex items-centergap-4 p-4"
+          className= "flex items-center gap-4 p-4"
           >
             <img 
             src= {link.imgURL} 
@@ -73,12 +74,12 @@ const SideBar = () => {
         }
         </ul>
       </div>
-      <div className="flex gap-4">
+      <div className="flex gap-4 p-4">
           <Button 
           variant= "ghost" 
           className="shad_button_ghost" 
           onClick={() => signOut()}>
-           <img src="/assets/icons/logout" alt="logout" />
+           <img src="/assets/icons/logout.svg" alt="logout" />
            <p className="small-medium lg:base-medium">Logout</p>
           </Button>
         </div>

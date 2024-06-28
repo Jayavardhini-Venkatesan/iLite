@@ -61,12 +61,12 @@ const PostStatus = ({post, userId}: PostStatsProps) => {
   }
 
   return (
-    <div className="flex justify-center items-center z-20">
+    <div className="flex justify-start items-center z-20">
       <div className="flex gap-2 mr-5">
         <img 
         src={`${checkIsLiked(likes, userId)?
-          "/assets/icons/liked"
-        :"/assets/icons/like"}`}
+          "/assets/icons/liked.svg"
+        :"/assets/icons/like.svg"}`}
         alt="like" 
         width={20}
         height={20}
@@ -79,8 +79,8 @@ const PostStatus = ({post, userId}: PostStatsProps) => {
       <div className="flex gap-2 ">
        {isSaving || isDeletingSaved ? <Loader/> : <img 
         src={ isSaved?
-            "/assets/icons/saved"
-            :"/assets/icons/save"
+            "/assets/icons/saved.svg"
+            :"/assets/icons/save.svg"
       }
         alt="save" 
         width={20}

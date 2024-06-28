@@ -20,7 +20,7 @@ const {user} = useUserContext();
           <Link to={`/profile/${post.creator.$id}`}>
             <img 
             className="rounded-full w-12 lg:h-12"
-            src={post?.creator?.imageUrl || '/assets/icons/profile-placeholder' } 
+            src={post?.creator?.imageUrl || '/assets/icons/profile.placeholder.svg' } 
             alt="creator" />
           </Link>
           <div className="flex flex-col">
@@ -28,10 +28,12 @@ const {user} = useUserContext();
             {post.creator.name}
            </p>
            <div className="flex-center gap-2 text-light-3">
+           {/* create relative date using formatedate */}
               <p className="subtle-semibold lg:small-regular">
-                //create relative date using formatedate
+               
                 {formatDateString (post.$createdAt)}
               </p>
+
                -
               <p className="subtle-semibold lg:small-regular">
                 {post.location}
@@ -43,7 +45,7 @@ const {user} = useUserContext();
               className={`${user.id !== post.creator.$id && "hidden"}`}
         >
           <img 
-          src="/assets/icons/edit" 
+          src="/assets/icons/edit.svg" 
           alt="edit"
           width={20}
           height={20} />
@@ -63,7 +65,7 @@ const {user} = useUserContext();
             </ul>
           </div>
           <img 
-          src= {post.imageUrl || '/assets/icons/profile-placeholder'} 
+          src= {post.imageUrl || '/assets/icons/posts.svg'} 
           alt="post image"
           className="post-card_img" 
           />
