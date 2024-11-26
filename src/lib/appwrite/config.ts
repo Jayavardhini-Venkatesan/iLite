@@ -7,10 +7,10 @@ export const appwriteConfig = {
   storageId: import.meta.env.VI_APPWRITE_BUCKET_ID,
   userCollectionId: import.meta.env.VI_APPWRITE_USER_COLLECTION_ID,
   postCollectionId: import.meta.env.VI_APPWRITE_POST_COLLECTION_ID,
-  savesCollectionId: import.meta.env.VITE_APPWRITE_SAVES_COLLECTION_ID,
+  savesCollectionId: import.meta.env.VI_APPWRITE_SAVES_COLLECTION_ID,
   
 };
-console.log (appwriteConfig.url)
+
 export const client = new Client()
     
 
